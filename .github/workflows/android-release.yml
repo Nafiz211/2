@@ -13,6 +13,9 @@ jobs:
   build:
     name: Build Debug APK
     runs-on: ubuntu-latest
+    env:
+      ANDROID_HOME: /usr/local/lib/android/sdk
+      ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
 
     steps:
       - name: Checkout repository
@@ -26,6 +29,35 @@ jobs:
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+
+      - name: Accept Android SDK licenses
+        run: |
+          SDKMANAGER=$(which sdkmanager 2>/dev/null || echo "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager")
+          echo "Using sdkmanager at: $SDKMANAGER"
+          if [ -x "$SDKMANAGER" ]; then
+            yes | "$SDKMANAGER" --licenses || true
+          fi
+
+      - name: Install required Android SDK components
+        run: |
+          SDKMANAGER=$(which sdkmanager 2>/dev/null || echo "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager")
+          echo "Installing required platforms and build tools via sdkmanager..."
+          if [ -x "$SDKMANAGER" ]; then
+            "$SDKMANAGER" "platforms;android-36" "build-tools;36.0.0" "platform-tools" || true
+          fi
+
+      - name: Verify Android SDK installation
+        run: |
+          echo "ANDROID_HOME: $ANDROID_HOME"
+          echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
+          SDKMANAGER=$(which sdkmanager 2>/dev/null || echo "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager")
+          if [ -x "$SDKMANAGER" ]; then
+            echo "Installed SDK components:"
+            "$SDKMANAGER" --list_installed | grep -E "platforms;android|build-tools;" || true
+          fi
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Ensure debug keystore exists
         run: |
