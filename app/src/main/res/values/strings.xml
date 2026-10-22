@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Media Notif Listener</string>
+    <string name="notification_service_label">Media Notification Listener Service</string>
+    <string name="filter_all">All</string>
+    <string name="filter_images">Photos</string>
+    <string name="filter_videos">Videos</string>
+    <string name="filter_audio">Voice Notes</string>
+    <string name="permission_active">Listener Active</string>
+    <string name="permission_inactive">Access Needed</string>
+    <string name="enable_permission_desc">Enable notification listener access in system settings to capture media from notifications.</string>
+    <string name="btn_enable_listener">Enable Access</string>
+    <string name="simulate_title">Test Notification Simulator</string>
+    <string name="empty_notifications">No notifications captured yet</string>
+    <string name="empty_notifications_sub">Notifications containing photos, videos, and voice notes will appear here with preview thumbnails.</string>
+</resources>

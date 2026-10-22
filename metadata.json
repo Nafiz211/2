@@ -1,0 +1,6 @@
+{
+  "name": "Media Notif Listener",
+  "description": "Notification listener that resolves and downloads photos, videos, and voice notes from notification payloads into local storage and displays them in a gallery timeline.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
